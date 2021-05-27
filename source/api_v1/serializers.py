@@ -5,7 +5,7 @@ from quoteapp.models import Quote
 class QuoteDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Quote
-        fields = "__all__"
+        fields = ("text", "name", "email")
 
 
 class QuoteListSerializer(serializers.ModelSerializer):
