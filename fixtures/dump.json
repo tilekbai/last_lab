@@ -1,0 +1,134 @@
+[
+{
+  "model": "quoteapp.quote",
+  "pk": 1,
+  "fields": {
+    "text": "Если тебе тяжело, значит ты поднимаешься в гору. Если тебе легко, значит ты летишь в пропасть.",
+    "name": "Генри Форд",
+    "email": "henry@ford.com",
+    "rating": 0,
+    "status": "новая",
+    "created": "2021-05-27T15:15:54.518Z"
+  }
+},
+{
+  "model": "quoteapp.quote",
+  "pk": 2,
+  "fields": {
+    "text": "Не подражайте другим. Найдите себя и оставайтесь собой, ведь «зависть — это невежество», а «подражание — самоубийство».",
+    "name": "Дейл Карнеги Источник",
+    "email": "dail@carnegy.com",
+    "rating": 0,
+    "status": "новая",
+    "created": "2021-05-27T15:17:05.123Z"
+  }
+},
+{
+  "model": "quoteapp.quote",
+  "pk": 3,
+  "fields": {
+    "text": "Успех сам не приходит к Вам... Вы идете к нему",
+    "name": "Marva Collins",
+    "email": "Marva@Collins.com",
+    "rating": 0,
+    "status": "новая",
+    "created": "2021-05-27T15:19:56.529Z"
+  }
+},
+{
+  "model": "quoteapp.quote",
+  "pk": 4,
+  "fields": {
+    "text": "Быть до конца честным с самим собой — непростая задача.",
+    "name": "Зигмунд Фрейд",
+    "email": "zigmund@floid.com",
+    "rating": 0,
+    "status": "новая",
+    "created": "2021-05-27T15:20:24.989Z"
+  }
+},
+{
+  "model": "quoteapp.quote",
+  "pk": 5,
+  "fields": {
+    "text": "Мода — это форма несовершенства, настолько невыносимая, что нам приходится менять ее каждые пол года.",
+    "name": "Oscar Wilde",
+    "email": "Oscar@Wilde.com",
+    "rating": 0,
+    "status": "новая",
+    "created": "2021-05-27T15:21:19.718Z"
+  }
+},
+{
+  "model": "quoteapp.quote",
+  "pk": 6,
+  "fields": {
+    "text": "Обладая неограниченной властью, практически любой человек становится тираном. Нерон может скрываться даже в добрейшем из живущих человеческих существ.",
+    "name": "Thomas Bailey",
+    "email": "Thomas@Bailey.com",
+    "rating": 0,
+    "status": "новая",
+    "created": "2021-05-27T15:21:54.708Z"
+  }
+},
+{
+  "model": "quoteapp.quote",
+  "pk": 7,
+  "fields": {
+    "text": "Факты упрямая вещь; статистика гораздо более гибкая.",
+    "name": "Марк Твен",
+    "email": "mark@twen.com",
+    "rating": 0,
+    "status": "новая",
+    "created": "2021-05-27T15:22:31.945Z"
+  }
+},
+{
+  "model": "quoteapp.quote",
+  "pk": 8,
+  "fields": {
+    "text": "Мы вешаем мелких воришек, а крупных назначаем на государственную службу.",
+    "name": "Aesop",
+    "email": "Aesop@Aesop.com",
+    "rating": 0,
+    "status": "новая",
+    "created": "2021-05-27T15:23:03.118Z"
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$260000$YzJyiuaFP41aEj79xGWz1r$kdJoFjBIP1W2BMcc5pK6edaW9NSdi81+BoGAFyCkXdM=",
+    "last_login": "2021-05-27T14:52:04.105Z",
+    "is_superuser": true,
+    "username": "user",
+    "first_name": "",
+    "last_name": "",
+    "email": "user@user.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2021-05-27T14:51:42.939Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 2,
+  "fields": {
+    "password": "pbkdf2_sha256$260000$QxqLavWmCQEDEGEudXLk7J$91pDrd2Ml7sdJQCLHueuXO8uKzFZkc1LuzbpdYfrKR4=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "Bobby",
+    "first_name": "Bobby",
+    "last_name": "Firmino",
+    "email": "bobby@bobby.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2021-05-27T14:52:30Z",
+    "groups": [],
+    "user_permissions": []
+  }
+}
+]
