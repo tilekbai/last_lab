@@ -7,3 +7,8 @@ from .serializers import *
 
 class QuoteCreateView(generics.CreateAPIView):
     serializer_class = QuoteDetailSerializer
+
+    
+class QuoteDetailView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = QuoteDetailSerializer
+    queryset = Quote.objects.all()
