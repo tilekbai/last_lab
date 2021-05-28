@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Цитаты{% endblock title %}</title>
+    <!-- <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}"> -->
+</head>
+<body>
+
+    <nav class="navbar">
+        <ul class="menu">
+                {% if user.is_authenticated %}
+                    <li class="menu_right"><a href="{% url 'accounts:logout' %}?next={{ request.get_full_path }}">Выйти</a></li>
+                {% else %}
+                    <li class="menu_right"><a href="{% url 'accounts:login' %}?next={{ request.get_full_path }}">Войти</a></li>
+                {% endif %}
+            {% block menu %}{% endblock %}
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h1>{% block page_header %}Цитаты{% endblock page_header %}</h1>
+        {% block content %}{% endblock content %}
+    </div>
+</body>
+</html>
