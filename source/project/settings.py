@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     # my apps
     'quoteapp',
     'rest_framework',
-    'api_v1'
+    'api_v1',
+    'accounts'
 ]
 
 MIDDLEWARE = [
