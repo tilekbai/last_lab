@@ -41,7 +41,9 @@ INSTALLED_APPS = [
     'quoteapp',
     'rest_framework',
     'api_v1',
-    'accounts'
+    'accounts',
+    'rest_framework.authtoken',
+    'djoser'
 ]
 
 MIDDLEWARE = [

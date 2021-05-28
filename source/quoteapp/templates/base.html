@@ -6,13 +6,13 @@
     <title>{% block title %}Цитаты{% endblock title %}</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
-    <link rel = "preconnect" href = "https://fonts.gstatic.com">
-    <link href = "https://fonts.googleapis.com/css2? family = Libre + Baskerville & display = swap" rel = "таблица стилей">
 </head>
 <body>
 
     <nav class="navbar">
         <ul class="menu">
+                <li><a href="#" id="list">Главная</a></li>
+                <li><a href="#">Добавить цитату</a></li>
                 {% if user.is_authenticated %}
                     <li class="menu_right"><a href="{% url 'accounts:logout' %}?next={{ request.get_full_path }}">Выйти</a></li>
                 {% else %}
@@ -22,9 +22,29 @@
         </ul>
     </nav>
 
-    <div class="container">
+    <div class="container" id="container">
         <h1>{% block page_header %}Цитаты{% endblock page_header %}</h1>
         {% block content %}{% endblock content %}
     </div>
+
+<script>
+    let container = document.getElementById("container")
+    let xhr = new XMLHttpRequest();
+    xhr.onload = function(){
+        console.log("Onload")
+        container.appendChild(document.createTextNode("Quotes"));
+    }
+    let listfunc = () => {
+        xhr.open("GET", "quote/list/");
+        xhr.send()
+        console.log("request: " + xhr.request)
+        console.log("response: " + xhr.response)
+        console.log("hoho")
+    }
+
+    let list = document.getElementById("list")
+    list.addEventListener("click", listfunc)
+
+</script>
 </body>
 </html>
