@@ -226,13 +226,17 @@ let f_add_q = () => {
             },
             data: {text: text.value, name: name.value, email: email.value},
             success: function() {
-                console.log("success-submit")
+                container.innerHTML = ""
+                let message_success = document.createElement("div")
+                message_success.appendChild(document.createTextNode("Цитата добавлена!"))
+
+                container.appendChild(message_success)                
             }
         });
     }
     )
     
-    
+
 }
 
 a_add.addEventListener("click", f_add_q)
