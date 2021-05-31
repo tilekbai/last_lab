@@ -11,8 +11,8 @@
 
     <nav class="navbar">
         <ul class="menu">
-                <li><a href="#" id="list">Главная</a></li>
-                <li><a href="#">Добавить цитату</a></li>
+                <li><a href="#" id="list" onclick="qlist(event);">Главная</a></li>
+                <li><a href="#" id="add_quote">Добавить цитату</a></li>
                 {% if user.is_authenticated %}
                     <li class="menu_right"><a href="{% url 'accounts:logout' %}?next={{ request.get_full_path }}">Выйти</a></li>
                 {% else %}
@@ -26,24 +26,216 @@
         <h1>{% block page_header %}Цитаты{% endblock page_header %}</h1>
         {% block content %}{% endblock content %}
     </div>
+<script
+src="https://code.jquery.com/jquery-3.1.1.js"
+integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
+crossorigin="anonymous">
+</script>
+  
+<script>
+    $.ajaxSetup({
+    headers: {
+        'X-CSRFToken': getCookie('csrftoken')
+    }
+}); 
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    console.log(cookieValue)
+    return cookieValue;
+}
+</script>   
 
 <script>
+
     let container = document.getElementById("container")
-    let xhr = new XMLHttpRequest();
-    xhr.onload = function(){
-        console.log("Onload")
-        container.appendChild(document.createTextNode("Quotes"));
-    }
-    let listfunc = () => {
-        xhr.open("GET", "quote/list/");
-        xhr.send()
-        console.log("request: " + xhr.request)
-        console.log("response: " + xhr.response)
-        console.log("hoho")
+
+// ##### Function form ########
+let form = () => {
+        let add_form = document.createElement("form")        
+        container.appendChild(add_form)
+
+        add_form.method = "POST"
+        add_form.action = ""
+        
+        let add_label_text = document.createElement("label")
+        add_label_text.innerHTML = "<br><br>Text: <br><br>"
+        let add_input_text = document.createElement("textarea")
+        add_input_text.id = "text"
+        add_input_text.type = "Text"
+
+        let add_label_name = document.createElement("label")
+        add_label_name.innerHTML = "<br><br>Name: <br><br>"
+        let add_input_name = document.createElement("input")
+        add_input_name.type = "Text"        
+        add_input_name.id = "name"        
+
+        let add_label_email = document.createElement("label")
+        add_label_email.innerHTML = "<br><br>Email: <br><br>"
+        let add_input_email = document.createElement("input")
+        add_input_email.type = "email"  
+        add_input_email.id = "email"  
+
+        let add_label_br = document.createElement("label")
+        add_label_br.innerHTML = "<br><br>"
+        let add_input_submit = document.createElement("input")
+        add_input_submit.type = "submit"
+        add_input_submit.value = "Submit"
+        add_input_submit.id = "submit"
+        add_input_submit.style.cssText = "margin: 5px 0; padding: 6px 5px; background: purple; color: white;"
+
+        add_form.appendChild(add_label_text)
+        add_form.appendChild(add_input_text)
+        add_form.appendChild(add_label_name)
+        add_form.appendChild(add_input_name)
+        add_form.appendChild(add_label_email)
+        add_form.appendChild(add_input_email)
+        add_form.appendChild(add_label_br)
+        add_form.appendChild(add_input_submit)
+
     }
 
-    let list = document.getElementById("list")
-    list.addEventListener("click", listfunc)
+let delete_form = () => {
+    let delete_quest = document.createElement("form")
+    delete_quest.method = "DELETE"
+    container.appendChild(delete_quest)
+    
+    let delete_quest_label = document.createElement("label")
+    delete_quest_label.innerHTML = "<br>Подтвердите удаление<br>"
+    let delete_quest_submit = document.createElement("input")
+    delete_quest_submit.type = "submit"
+    delete_quest_submit.value = "Удалить"
+
+    delete_quest.appendChild(delete_quest_label)
+}
+
+function qlist(event) {
+    let which = event.target
+    event.stopPropagation()
+
+    $.ajax({
+        url: "http://localhost:8000/quote/list/",
+        method: "GET",
+        success: function(data, status) {
+            container.innerHTML = ""
+            for (d in data) {
+                let list_div = document.createElement("div");
+                let under = document.createElement("div");
+                let a_detail = document.createElement("a");
+                let linkText = document.createTextNode("Подробнее");
+                a_detail.appendChild(linkText);
+                a_detail.href = "#";
+
+                let pk = data[d].id;
+                a_detail.id = pk;
+                document.body.appendChild(a_detail);
+                list_div.style.cssText = "margin: 30px 0 6px    ; padding: 30px 0 0;";
+                container.appendChild(list_div);
+                container.appendChild(under);
+                list_div.innerHTML = (data[d].text);
+                under.appendChild(a_detail);
+                under.appendChild(document.createTextNode("Дата: " + data[d].created + ". Рейтинг: " + data[d].rating));
+
+                detail_view = () => {
+                    let which = event.target
+                    event.stopPropagation()
+                    $.ajax({
+                        url: "http://localhost:8000/quote/detail/" + pk,
+                        method: "GET",
+                        success: function(data, status) {
+                            container.innerHTML = "";
+                            let detail = document.createElement("div");
+                            let under_detail = document.createElement("div");
+                            detail.style.cssText = "margin: 30px 0 6px    ; padding: 30px 0 0;";
+                            container.appendChild(detail);
+                            container.appendChild(under_detail);
+                            detail.innerHTML = (data.text + " - " + data.name);
+                            
+                            under_detail.appendChild(document.createTextNode("Дата: " + data.created + ". Рейтинг: " + data.rating + ". " + data.email));
+                        }
+                    });
+                }
+                
+                let detail_a_quote = document.getElementById(pk);
+                detail_a_quote.addEventListener("click", detail_view);
+
+                // *****
+                delete_quote = () => {
+                    let which = event.target
+                    event.stopPropagation()
+                    $.ajax({
+                        url: "http://localhost:8000/quote/detail/" + pk,
+                        method: "DELETE",
+                        success: function(data, status) {
+                            container.innerHTML = "";
+                            let detail = document.createElement("div");
+                            let under_detail = document.createElement("div");
+                            detail.style.cssText = "margin: 30px 0 6px    ; padding: 30px 0 0;";
+                            container.appendChild(detail);
+                            container.appendChild(under_detail);
+                            detail.innerHTML = (data.text + " - " + data.name);
+                            
+                            under_detail.appendChild(document.createTextNode("Дата: " + data.created + ". Рейтинг: " + data.rating + ". " + data.email));
+
+                            delete_form();
+                            
+                        }
+                    });
+                }
+
+            }
+        }
+    });
+}
+
+// **** Function Add ****
+
+let a_add = document.getElementById("add_quote");
+
+
+
+let f_add_q = () => {
+    container.innerHTML = ""
+    form()
+    let submit = document.getElementById("submit")
+    console.log("end")
+
+    submit.addEventListener("click", 
+        submit_func = (event) => {
+        event.preventDefault()    
+        console.log(getCookie('csrftoken'))
+        let name = document.getElementById("name")
+        let text = document.getElementById("text")
+        let email = document.getElementById("email")
+        console.log(name.value)
+
+        $.ajax({
+            url: "http://localhost:8000/quote/create/",
+            type: "POST",
+            headers: {
+                'X-CSRFToken': getCookie('csrftoken')
+            },
+            data: {text: text.value, name: name.value, email: email.value},
+            success: function() {
+                console.log("success-submit")
+                console.log(data)
+            }
+        });
+    }
+    )
+    
+}
+
+a_add.addEventListener("click", f_add_q)
 
 </script>
 </body>
