@@ -9,7 +9,7 @@ from .serializers import *
 
 
 class QuoteCreateView(generics.CreateAPIView):
-    serializer_class = QuoteDetailSerializer
+    serializer_class = QuoteCreateSerializer
 
     
 class QuoteDetailView(generics.RetrieveUpdateDestroyAPIView):
